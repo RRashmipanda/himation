@@ -1,23 +1,25 @@
-import About from "./components/About";
-import Hero from "./components/Hero";
-import NavBar from "./components/Navbar";
-import Features from "./components/Features";
-import Story from "./components/Story";
-import Contact from "./components/Contact";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import Home from "./pages/Home";
+import VirtualTour from "./pages/VirtualTour";
+import ARVREducation from "./pages/ARVREducation";
+import ARVRIndustry from "./pages/ARVRIndustry";
 import Footer from "./components/Footer";
 
 function App() {
   return (
-    <main className="relative min-h-screen w-screen overflow-x-hidden">
+    <Router>
       <NavBar />
-      <Hero />
-      <About />
-      <Features />
-      <Story />
-      <Contact />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/virtual-tour" element={<VirtualTour />} />
+        <Route path="/ar-vr-education" element={<ARVREducation />} />
+        <Route path="/ar-vr-industry" element={<ARVRIndustry />} />
+      </Routes>
       <Footer />
-    </main>
+    </Router>
   );
 }
 
 export default App;
+
