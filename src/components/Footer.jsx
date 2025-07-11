@@ -128,7 +128,7 @@ const Footer = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-gray-600">
-              © 2024 <span className="font-semibold text-rose-600">Himation</span>. All rights reserved. Made with 💖 for the AR/VR community.
+              © 2025 <span className="font-semibold text-rose-600">HiMation Automation Pvt Ltd</span>. All rights reserved. Made with 💖 for the AR/VR community.
             </p>
             
             <div className="flex items-center gap-6 text-sm text-gray-600">

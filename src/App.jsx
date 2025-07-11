@@ -5,8 +5,11 @@ import VirtualTour from "./pages/VirtualTour";
 import ARVREducation from "./pages/ARVREducation";
 import ARVRIndustry from "./pages/ARVRIndustry";
 import Footer from "./components/Footer";
-import ARVR360Virtual from './pages/ARVR360°Virtual'
-import ContactPage from "./pages/ContactPage";
+import ARVR360Virtual from './pages/ARVR360°Virtual';
+import About from "./pages/About";
+import Career from "./pages/Career";
+import Platform from "./pages/Platform";
+import Contact from "./pages/Contact";
 
 function App() {
   return (
@@ -18,7 +21,10 @@ function App() {
         <Route path="/virtual-tour" element={<VirtualTour />} />
         <Route path="/ar-vr-education" element={<ARVREducation />} />
         <Route path="/ar-vr-industry" element={<ARVRIndustry />} />
-        <Route path="/contactpage" element={<ContactPage />} />
+         <Route path="/about" element={<About />} />
+        <Route path="/career" element={<Career />} />
+        <Route path="/platform" element={<Platform />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
       <Footer />
     </Router>

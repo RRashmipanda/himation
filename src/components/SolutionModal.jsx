@@ -1,229 +1,183 @@
-
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { Link } from "react-router-dom";
+import { ChevronRight, Play, BookOpen, Building2 } from "lucide-react";
 
 const SolutionModal = ({ isOpen }) => {
   const menuRef = useRef(null);
   const cardsRef = useRef([]);
-  const particlesRef = useRef([]);
-  const [particles, setParticles] = useState([]);
-
-  // Create floating particles
-  const createParticles = () => {
-    const newParticles = [];
-    for (let i = 0; i < 15; i++) {
-      newParticles.push({
-        id: i,
-        left: Math.random() * 100,
-        delay: Math.random() * 6,
-        duration: 4 + Math.random() * 4,
-      });
-    }
-    setParticles(newParticles);
-  };
-
-  useEffect(() => {
-    createParticles();
-  }, []);
 
   useEffect(() => {
     if (isOpen) {
-      // Main container animation
-      gsap.set(menuRef.current, { display: "block" });
-      
-      const tl = gsap.timeline();
-      
-      tl.to(menuRef.current, {
-        height: "450px",
+      gsap.set(menuRef.current, { display: "block", opacity: 0, y: -10 });
+      gsap.to(menuRef.current, {
         opacity: 1,
-        duration: 0.6,
-        ease: "power3.out",
-      })
-      .from(menuRef.current, {
-        y: -50,
-        duration: 0.4,
-        ease: "back.out(1.7)",
-      }, 0.1);
-
-      // Cards animation with stagger
-      gsap.fromTo(cardsRef.current, 
+        y: 0,
+        duration: 0.3,
+        ease: "power2.out",
+      });
+      gsap.fromTo(
+        cardsRef.current,
+        { opacity: 0, y: 20 },
         {
-          y: 50,
-          opacity: 0,
-          scale: 0.8,
-          rotationX: -15,
-        },
-        {
-          y: 0,
           opacity: 1,
-          scale: 1,
-          rotationX: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: "back.out(1.7)",
-          delay: 0.2,
+          y: 0,
+          duration: 0.4,
+          stagger: 0.08,
+          ease: "power2.out",
+          delay: 0.1,
         }
       );
-
-      // Animate particles
-      particlesRef.current.forEach((particle, index) => {
-        gsap.fromTo(particle,
-          {
-            y: 50,
-            opacity: 0,
-            scale: 0,
-          },
-          {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 0.6,
-            delay: index * 0.1,
-            ease: "power2.out",
-          }
-        );
-      });
-
     } else {
-      const tl = gsap.timeline();
-      
-      // Hide cards first
-      tl.to(cardsRef.current, {
-        y: -30,
+      gsap.to(menuRef.current, {
         opacity: 0,
-        scale: 0.95,
-        duration: 0.3,
-        stagger: 0.05,
-        ease: "power2.in",
-      })
-      .to(menuRef.current, {
-        height: 0,
-        opacity: 0,
-        duration: 0.4,
+        y: -10,
+        duration: 0.2,
         ease: "power2.in",
         onComplete: () => {
-          if (menuRef.current) menuRef.current.style.display = "none";
+          if (menuRef.current) {
+            menuRef.current.style.display = "none";
+          }
         },
-      }, 0.2);
-
-      // Hide particles
-      gsap.to(particlesRef.current, {
-        opacity: 0,
-        scale: 0,
-        duration: 0.3,
-        stagger: 0.02,
       });
     }
   }, [isOpen]);
 
   const solutionData = [
     {
-      title: "Virtual Tour",
-      gradient: "from-rose-500 to-pink-600",
+      title: "Virtual Tours & Experiences",
+      icon: Play,
+      gradient: "from-rose-500 to-pink-500",
       items: [
-        { name: "360° Virtual Tour", link: "/ARVR360Virtual" },
-        { name: "AR VR Lab Setup", link: "#" },
-        { name: "Effective way of Teleporting", link: "#" }
-      ]
+        {
+          name: "360° Virtual Tour",
+          link: "/ARVR360Virtual",
+          description: "Complete immersive property tours",
+        },
+        {
+          name: "AR VR Lab Setup",
+          link: "#",
+          description: "Professional lab configurations",
+        },
+        {
+          name: "Teleporting Solutions",
+          link: "#",
+          description: "Advanced spatial navigation",
+        },
+      ],
     },
     {
-      title: "AR/VR for Education", 
-      gradient: "from-pink-500 to-rose-500",
+      title: "Educational Solutions",
+      icon: BookOpen,
+      gradient: "from-pink-500 to-rose-400",
       items: [
-        { name: "For K-12, ITI, Diploma, Engg Colleges", link: "#" },
-        { name: "AR/VR Solutions in Industrial Training", link: "#" },
-        { name: "AR/VR Implementation in Internship", link: "#" }
-      ]
+        {
+          name: "K-12 & Higher Education",
+          link: "#",
+          description: "Comprehensive educational programs",
+        },
+        {
+          name: "Industrial Training",
+          link: "#",
+          description: "Hands-on professional development",
+        },
+        {
+          name: "Internship Programs",
+          link: "#",
+          description: "Real-world experience simulation",
+        },
+      ],
     },
     {
-      title: "AR/VR for Industry",
-      gradient: "from-rose-600 to-pink-500", 
+      title: "Industry Applications",
+      icon: Building2,
+      gradient: "from-rose-400 to-pink-400",
       items: [
-        { name: "AR/VR Implementation in Hospitality, Hotels & Tourism", link: "#" },
-        { name: "AR/VR/MR Tailored Content Development Services", link: "#" },
-        { name: "AR/VR Solutions for Civil and Construction", link: "#" }
-      ]
-    }
+        {
+          name: "Hospitality & Tourism",
+          link: "#",
+          description: "Enhanced guest experiences",
+        },
+        {
+          name: "Custom Content Development",
+          link: "#",
+          description: "Tailored AR/VR solutions",
+        },
+        {
+          name: "Construction & Civil",
+          link: "#",
+          description: "Project visualization tools",
+        },
+      ],
+    },
   ];
 
   return (
     <div
       ref={menuRef}
-      className="absolute top-20 left-0 w-full overflow-hidden bg-gradient-to-br from-rose-50/95 via-pink-50/95 to-white/95 backdrop-blur-2xl border border-rose-200/50 rounded-3xl shadow-2xl"
-      style={{ height: 0, opacity: 0, display: "none" }}
+      className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[800px] bg-white rounded-2xl shadow-2xl border border-gray-200/50 overflow-hidden z-50"
+      style={{ opacity: 0, display: "none" }}
     >
-      {/* Floating Particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {particles.map((particle) => (
-          <div
-            key={particle.id}
-            ref={(el) => particlesRef.current[particle.id] = el}
-            className="floating-particles absolute"
-            style={{
-              left: `${particle.left}%`,
-              animationDelay: `${particle.delay}s`,
-              animationDuration: `${particle.duration}s`,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Shimmer overlay */}
-      <div className="absolute inset-0 shimmer-effect opacity-30"></div>
-
-      <div className="relative z-10 p-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {solutionData.map((section, sectionIndex) => (
             <div
               key={sectionIndex}
-              ref={(el) => cardsRef.current[sectionIndex] = el}
-              className="solution-card bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-rose-200/40 shadow-lg hover:shadow-2xl"
+              ref={(el) => (cardsRef.current[sectionIndex] = el)}
+              className="group"
             >
-              <div className="relative">
-                <h3 className={`text-xl font-bold mb-4 glow-text bg-gradient-to-r ${section.gradient} bg-clip-text text-transparent`}>
-                  {section.title}
-                </h3>
-                
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-rose-400/20 to-pink-500/20 rounded-full blur-sm"></div>
+              <div className="mb-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div
+                    className={`p-2 rounded-xl bg-gradient-to-r ${section.gradient} shadow-lg`}
+                  >
+                    <section.icon className="w-5 h-5 text-white" />
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900">
+                    {section.title}
+                  </h3>
+                </div>
               </div>
-              
-              <ul className="space-y-3">
+
+              <div className="space-y-2">
                 {section.items.map((item, itemIndex) => (
-                  <li key={itemIndex} className="solution-item">
-                    {item.link.startsWith('/') ? (
-                      <Link 
-                        to={item.link} 
-                        className="block text-gray-700 hover:text-transparent hover:bg-gradient-to-r hover:from-rose-600 hover:to-pink-600 hover:bg-clip-text font-medium transition-all duration-300 transform hover:translate-x-2 hover:scale-105 py-2 px-3 rounded-lg hover:bg-rose-50/50"
+                  <div key={itemIndex} className="solution-item">
+                    {item.link.startsWith("/") ? (
+                      <Link
+                        to={item.link}
+                        className="group/item flex items-center justify-between p-4 rounded-xl hover:bg-gray-50 transition-all duration-200 border border-transparent hover:border-gray-200 hover:shadow-sm"
                       >
-                        {item.name}
+                        <div className="flex-1">
+                          <div className="font-semibold text-gray-900 group-hover/item:text-rose-500 transition-colors">
+                            {item.name}
+                          </div>
+                          <div className="text-sm text-gray-500 mt-1">
+                            {item.description}
+                          </div>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-gray-400 group-hover/item:text-rose-500 group-hover/item:translate-x-1 transition-all duration-200" />
                       </Link>
                     ) : (
-                      <a 
+                      <a
                         href={item.link}
-                        className="block text-gray-700 hover:text-transparent hover:bg-gradient-to-r hover:from-rose-600 hover:to-pink-600 hover:bg-clip-text font-medium transition-all duration-300 transform hover:translate-x-2 hover:scale-105 py-2 px-3 rounded-lg hover:bg-rose-50/50 cursor-pointer"
+                        className="group/item flex items-center justify-between p-4 rounded-xl hover:bg-gray-50 transition-all duration-200 border border-transparent hover:border-gray-200 hover:shadow-sm cursor-pointer"
                       >
-                        {item.name}
+                        <div className="flex-1">
+                          <div className="font-semibold text-gray-900 group-hover/item:text-rose-500 transition-colors">
+                            {item.name}
+                          </div>
+                          <div className="text-sm text-gray-500 mt-1">
+                            {item.description}
+                          </div>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-gray-400 group-hover/item:text-rose-500 group-hover/item:translate-x-1 transition-all duration-200" />
                       </a>
                     )}
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
-        </div>
-
-        {/* Bottom decoration */}
-        <div className="flex justify-center mt-6">
-          <div className="flex space-x-2">
-            {[...Array(5)].map((_, i) => (
-              <div
-                key={i}
-                className="w-2 h-2 bg-gradient-to-r from-rose-400 to-pink-500 rounded-full opacity-60"
-                style={{ animationDelay: `${i * 0.2}s` }}
-              />
-            ))}
-          </div>
         </div>
       </div>
     </div>
